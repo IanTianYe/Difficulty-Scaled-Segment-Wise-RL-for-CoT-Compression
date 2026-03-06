@@ -465,7 +465,7 @@ class RewardBatchComputer:
             r_ans=rewards["r_ans"],
             r_eff_daar=rewards["r_eff_daar"],
             r_len_align=rewards["r_len_align"],
-            diff_weight=rewards["diff_weight"],  # NEW: 直接用你已算好的
+            diff_weight=rewards["diff_weight"],  
         )
         with self._lock:
             self._cache[batch_key] = metrics_min
@@ -769,4 +769,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
