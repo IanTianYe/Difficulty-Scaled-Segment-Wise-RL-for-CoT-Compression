@@ -1,0 +1,50 @@
+model_id: /root/autodl-tmp/models/Qwen3-4B-Thinking-2507 # /root/autodl-tmp/models/Qwen3-4B-Thinking-2507 # /root/autodl-tmp/models/Qwen3-8B
+output_dir: /root/autodl-tmp/outputs/Qwen3-4B-Thinking-2507-LoRA-PRIVATE # /root/autodl-tmp/outputs/Qwen3-8B-LoRA
+
+temp_schedule: cosine
+temperature: 0.7
+top_p: 0.95
+temp_start: 1.3
+temp_final: 0.7
+max_steps: 650
+num_generations: 8
+prompts_per_step: 1
+max_prompt_len: 256
+max_completion_length: 16384
+
+gpu_memory_utilization: 0.60
+
+learning_rate: 1e-5
+beta_kl: 0.0
+grad_accum: 1
+
+api_workers: 32
+
+use_4bit: 0
+lora_r: 64
+lora_alpha: 128
+lora_dropout: 0.05
+target_modules: q_proj,k_proj,v_proj,o_proj,gate_proj,up_proj,down_proj
+
+token_level_grpo: 1
+reward_weights: "1.0, 1.0, 1.0, 1.0, 0.0"
+lcomp_margin: 256
+lenref_floor: 16
+
+# --------- Correctness Judge ----------
+enable_judger: 1
+judger_api_key: "sk-42c8650f9117457090fb9aeebb784577"        # 也可以用同一个 key
+judger_base_url: "https://api.deepseek.com"
+judger_model: "deepseek-chat"
+judger_timeout_s: 60
+
+ref_max_new_tokens: 16384
+
+# --------- Watch / Monitoring ----------
+watch_enable: 1              # 1=开启监控输出
+watch_every: 5               # 每 5 次 reward call 打印一次（等价于每 5 个 batch）
+watch_preview_chars: 4096     # compress/answer 预览截断长度
+watch_write_jsonl: /root/autodl-tmp/out_grpo_train/cache/watch.jsonl   # 可选：写入jsonl，便于后处理
+watch_print_full_answer: 1   # 1=打印完整答案（可能很长）
+watch_print_full_think: 1    # 1=打印think头部预览
+watch_print_full_completion: 0
